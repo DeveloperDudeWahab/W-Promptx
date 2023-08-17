@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <title>Writing Prompt Generator</title>
+    <style>
+        /* Additional custom CSS styles */
+        body {
+          background: url('new1.jpg') no-repeat center center fixed;
+          background-size: cover;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+    .logo{
+      align-items: center;
+      margin-left: 43%;
+      margin-bottom: 0px;
+    }
+    #i{
+     
+      align-items: center;
+    }
+      
+      .prompt-container {
+          max-width: 600px;
+          margin: 0 auto;
+          padding: 30px;
+          background-color: #ffffff;
+          border-radius: 10px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+          color: #333;
+          text-align: center;
+          margin-bottom: 30px;
+      }
+      .prompt-form {
+          margin-bottom: 20px;
+      }
+      .btn-primary {
+          background-color: #6c63ff;
+          border-color: #6c63ff;
+      }
+      .btn-primary:hover {
+          background-color: #564dff;
+          border-color: #564dff;
+      }
+      #promptOutput {
+          margin-top: 30px;
+      }
+      .prompt {
+          padding: 10px 15px;
+          border-radius: 5px;
+          background-color: #f8f8f8;
+          margin-bottom: 15px;
+          color: #333;
+          font-size: 16px;
+          line-height: 1.6;
+      }
+    </style>
+</head>
+<body>
+  <div class="logo">
+    <img width="200px" src="LOGO (2).png" alt="Logo">
+    
+</div>
+<h1 id="1">Unleash Your Creativity</h1>
+    <div class="prompt-container mt-5">
+      <h1 class="text-center mb-4">W-Prompt</h1>
+        <h2 class="text-center mb-4">Prompt Generator For Chat GPT</h2>
+        <div class="mb-3">
+            <label for="promptType" class="form-label">Select Prompt Type:</label>
+            <select class="form-select" id="promptType">
+                <option value="fiction">Fiction</option>
+                <option value="poetry">Poetry</option>
+                <option value="blog">Blog Posts</option>
+                <option value="copywriting">Website Copywriting</option>
+                <option value="social">Social Media Posts</option>
+                <option value="advertising">Advertising/Sales Copywriting</option>
+                <option value="technical">Technical Writing</option>
+                <option value="manuals">User Manuals/Documentation</option>
+                <option value="ebooks">Ebooks & White Papers</option>
+                <option value="ux">UX Writing</option>
+            </select>
+            <div class="mb-3">
+              <label for="numPrompts" class="form-label">Number of Prompts:</label>
+              <input type="number" class="form-control" id="numPrompts" min="1" value="1">
+          </div>
+          <button class="btn btn-primary" id="generateBtn">Generate Prompts</button>
+          <button class="btn btn-danger" id="clearBtn">Clear Prompts</button>
+        </form>
+          <div id="promptOutput"></div>
+      </div>
+      <div class="section bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 class="mb-4">Discover a World of Possibilities 🚀</h2>
+                    <p>📚 Looking for writing ideas? Our prompt generator provides a diverse range of prompts for fiction, poetry, blog posts, technical writing, and more. Let your creativity flow with a single click! 🖋️</p>
+                </div>
+                <div class="col-md-6">
+                    <h2 class="mb-4">Easy to Use, Instant Results 🎉</h2>
+                    <p>✨ No more staring at a blank page! Simply choose the type of prompt you want and the number of prompts you need. Click the button, and watch as inspiring ideas appear before your eyes. 🌟</p>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+       
+
+ 
+        <div class="section bg-light">
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-6">
+                      <h2 class="mb-4">Write, Edit, Share, Repeat 🔄</h2>
+                      <p>📢 Our platform not only generates prompts but also supports your writing process. Create, edit, and organize your work right here. Once you're satisfied, share your masterpiece with the world! 🌎</p>
+                  </div>
+                  <div class="col-md-6">
+                      <h2 class="mb-4">Embrace the Unexpected 🌌</h2>
+                      <p>🔮 Sometimes, the most unexpected prompts lead to the most remarkable stories. Let serendipity guide your creativity as you explore unique and unconventional writing ideas. 🌠</p>
+                  </div>
+              </div>
+          </div>
+      </div> <!-- Add more sections here -->
+
+  <footer class="bg-light py-4 text-center">
+      <div class="container">
+          <p class="mb-0">Powered by GPT-3.5 from OpenAI | © 2023 DeveloperDudes</p>
+      </div>
+  </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const generateBtn = document.getElementById("generateBtn");
+            const promptOutput = document.getElementById("promptOutput");
+
+            const promptTypes = {
+                fiction: [
+                    "Write a story that begins with 'It was a dark and stormy night...'",
+                    "Write about a character who discovers a hidden world within their closet.",
+                    // Add more fiction prompts
+                ],
+                poetry: [
+                    "Write a poem about the changing seasons.",
+                    "Compose a poem using only words that start with the letter 'S'.",
+                    // Add more poetry prompts
+                ],
+                blog: [
+                    "Write a blog post discussing the benefits of mindfulness meditation.",
+                    "Create a list of the top 10 travel destinations for the upcoming year.",
+                    // Add more blog prompts
+                ],
+                copywriting: [
+                    "Write compelling copy for a landing page promoting a new product.",
+                    "Craft a tagline for a fitness apparel brand.",
+                    // Add more copywriting prompts
+                ],
+                social: [
+                    "Compose a catchy tweet promoting a new book release.",
+                    "Write an engaging Facebook post about the importance of recycling.",
+                    // Add more social media prompts
+                ],
+                advertising: [
+                    "Create a short script for a radio ad promoting a local restaurant.",
+                    "Write a headline and subheadline for a print advertisement for a technology gadget.",
+                    // Add more advertising prompts
+                ],
+                technical: [
+                    "Write step-by-step instructions for setting up a home Wi-Fi network.",
+                    "Create a troubleshooting guide for common software issues.",
+                    // Add more technical writing prompts
+                ],
+                manuals: [
+                    "Write a user manual for assembling a piece of furniture.",
+                    "Document the features and functions of a new software application.",
+                    // Add more user manual prompts
+                ],
+                ebooks: [
+                    "Write an ebook on budgeting and financial planning.",
+                    "Create a comprehensive guide to healthy eating and meal preparation.",
+                    // Add more ebook prompts
+                ],
+                ux: [
+                    "Write user interface text for a mobile weather app.",
+                    "Craft error messages and user prompts for an e-commerce checkout process.",
+                    // Add more UX writing prompts
+                ],
+            };
+
+            generateBtn.addEventListener("click", () => {
+                const promptType = document.getElementById("promptType").value;
+                const numPrompts = document.getElementById("numPrompts").value;
+
+                const prompts = generatePrompts(promptType, numPrompts);
+                displayPrompts(prompts);
+            });
+
+            function generatePrompts(type, num) {
+                const selectedPrompts = promptTypes[type];
+                if (!selectedPrompts) {
+                    return [];
+                }
+
+                const generatedPrompts = [];
+                for (let i = 0; i < num; i++) {
+                    const randomIndex = Math.floor(Math.random() * selectedPrompts.length);
+                    generatedPrompts.push(selectedPrompts[randomIndex]);
+                }
+
+                return generatedPrompts;
+            }
+
+            function displayPrompts(prompts) {
+                promptOutput.innerHTML = "";
+                prompts.forEach(prompt => {
+                    const promptDiv = document.createElement("div");
+                    promptDiv.classList.add("alert", "alert-success", "mb-2");
+                    promptDiv.textContent = prompt;
+                    promptOutput.appendChild(promptDiv);
+                });
+            }
+        });
+         // JavaScript logic for generating prompts and clearing prompts
+         document.getElementById('generateBtn').addEventListener('click', function(event) {
+          // Your generation logic here
+          event.preventDefault();
+      });
+
+      document.getElementById('clearBtn').addEventListener('click', function(event) {
+          location.reload(); // Refreshes the page
+          event.preventDefault();
+      });
+    </script>
+</body>
+</html>
