@@ -84,9 +84,10 @@
                 <option value="ux">UX Writing</option>
             </select>
             <div class="mb-3">
-              <label for="numPrompts" class="form-label">Number of Prompts:</label>
-              <input type="number" class="form-control" id="numPrompts" min="1" value="1">
-          </div>
+                <label for="numPrompts" class="form-label">Number of Prompts:</label>
+                <input type="number" class="form-control" id="numPrompts" min="1" max="50" value="1">
+            </div>
+            
           <button class="btn btn-primary" id="generateBtn">Generate Prompts</button>
           <button class="btn btn-danger" id="clearBtn">Clear Prompts</button>
         </form>
@@ -127,19 +128,30 @@
 
   <footer class="bg-light py-4 text-center">
       <div class="container">
-          <p class="mb-0">Powered by GPT-3.5 from OpenAI | © 2023 DeveloperDudes</p>
+          <p class="mb-0">Powered by Wahab Akmal | © 2023 DeveloperDudes</p>
       </div>
   </footer>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const generateBtn = document.getElementById("generateBtn");
-            const promptOutput = document.getElementById("promptOutput");
-
-            const promptTypes = {
+            document.addEventListener("DOMContentLoaded", () => {
+                const generateBtn = document.getElementById("generateBtn");
+                const promptOutput = document.getElementById("promptOutput");
+                const numPromptsInput = document.getElementById("numPrompts");
+        
+                const promptTypes = {
                 fiction: [
                     "Write a story that begins with 'It was a dark and stormy night...'",
                     "Write about a character who discovers a hidden world within their closet.",
+                    "In a world where dreams come to life, a young artist discovers the power of her imagination",
+"A mysterious stranger arrives in a small town, bringing with them a secret that could change everything",
+"A group of friends stumble upon a hidden portal that leads to a fantastical realm",
+"An ancient curse is unleashed, and a reluctant hero must embark on a perilous journey to save their loved ones",
+"In a dystopian society, a rebellious teenager discovers a hidden resistance movement",
+"A time-traveling scientist accidentally alters the course of history, and must find a way to set things right",
+"A struggling writer becomes obsessed with a mysterious manuscript that seems to predict future events",
+"A young orphan with extraordinary powers is thrust into a world of magic and adventure",
+"A retired detective is pulled back into a dangerous investigation when an old enemy resurfaces",
+"In a post-apocalyptic world, a group of survivors must band together to rebuild society"
                     // Add more fiction prompts
                 ],
                 poetry: [
@@ -150,68 +162,479 @@
                 blog: [
                     "Write a blog post discussing the benefits of mindfulness meditation.",
                     "Create a list of the top 10 travel destinations for the upcoming year.",
+                    "The Impact of Social Media on Society"
+,"How to Start a Successful Blog"
+,"The Benefits of Regular Exercise"
+,"Tips for Effective Time Management"
+,"The Importance of Mental Health Awareness"
+,"Exploring Sustainable Living Practices"
+,"The Rise of Remote Work and its Advantages"
+,"The Power of Positive Thinking"
+,"The Role of Technology in Education"
+,"The Art of Effective Communication"
+,"The Benefits of Traveling Solo"
+,"The Impact of Climate Change on Our Planet"
+,"Tips for Building a Strong Personal Brand"
+,"The Benefits of Mindfulness Meditation"
+,"The Future of Artificial Intelligence"
+,"The Role of Women in Leadership"
+,"The Importance of Financial Literacy"
+,"The Influence of Music on Mood"
+,"The Benefits of a Healthy Diet"
+,"The Rise of E-commerce and Online Shopping"
+,"The Power of Storytelling in Marketing"
+,"The Impact of Social Media Influencers"
+,"The Benefits of Volunteering"
+,"The Role of Creativity in Problem Solving"
+,"The Importance of Lifelong Learning"
+,"The Impact of Video Games on Society"
+,"The Benefits of Journaling"
+,"The Role of Artificial Intelligence in Healthcare"
+,"The Power of Networking for Career Growth"
+,"The Importance of Emotional Intelligence"
+,"The Rise of Sustainable Fashion"
+,"The Benefits of Yoga and Meditation"
+,"The Impact of Technology on the Environment"
+,"The Role of Parenting in Child Development"
+,"The Benefits of a Positive Work Culture"
+,"The Future of Renewable Energy"
+,"The Importance of Goal Setting"
+,"The Influence of Social Media on Body Image"
+,"The Benefits of Learning a Second Language"
+,"The Role of Education in Empowering Women"
+,"The Impact of Artificial Intelligence on Job Market"
+,"The Power of Gratitude in Daily Life"
+,"The Benefits of Minimalism"
+,"The Role of Nutrition in Mental Health"
+,"The Importance of Work-Life Balance"
+,"The Rise of Remote Learning"
+,"The Impact of Social Media on Mental Health"
+,"The Benefits of Outdoor Activities"
+,"The Role of Technology in Sustainable Agriculture"
+,"The Power of Positive Affirmations"
                     // Add more blog prompts
                 ],
                 copywriting: [
                     "Write compelling copy for a landing page promoting a new product.",
                     "Craft a tagline for a fitness apparel brand.",
+                    "Craft a tagline for a fitness apparel brand",
+"Write compelling copy for a landing page promoting a new product",
+"Create an attention-grabbing headline for a fashion magazine advertisement",
+"Develop persuasive copy for a social media ad campaign",
+"Write a captivating product description for an e-commerce website",
+"Craft an engaging email subject line for a promotional campaign",
+"Create a persuasive sales letter for a new service",
+"Write an informative blog post about content marketing strategies",
+"Develop a catchy slogan for a food delivery app",
+"Craft a tagline for a fitness apparel brand",
+"Write compelling copy for a landing page promoting a new product",
+"Create an attention-grabbing headline for a fashion magazine",
+"Develop a social media strategy for a small business",
+"Design a logo for a tech startup",
+"Write a persuasive email to attract potential clients",
+"Create an infographic about the benefits of a healthy lifestyle",
+"Develop a content calendar for a travel blog",
+"Write a product review for a popular gadget",
+"Design a brochure for a real estate agency",
+"Create a tutorial video for a DIY project",
+"Write a script for a promotional video",
+"Design a website layout for an e-commerce store",
+"Write a blog post about the latest fashion trends",
+"Create a social media campaign for a nonprofit organization",
+"Develop a branding strategy for a new restaurant",
+"Write a press release for a book launch",
+"Design a packaging for a new beauty product",
+"Create a podcast episode about personal development",
+"Write an engaging About Me page for a personal website",
+"Design a poster for a music festival",
+"Write a script for a radio advertisement",
+"Create an animated video for a children's educational app",
+"Develop a marketing plan for a fitness studio",
+"Write a guest post for a popular blog in your industry",
+"Design a menu for a trendy cafe",
+"Create a tutorial for a makeup look",
+"Write a newsletter for a subscription box service",
+"Design a flyer for a local event",
+"Create a social media contest to increase brand awareness",
+"Write a script for a customer testimonial video",
+"Design a business card for a freelance photographer",
+"Create a presentation on the future of technology",
+"Write a blog post about sustainable living tips",
+"Design a logo for a nonprofit organization",
+"Create a tutorial for a healthy recipe",
+"Write a sales pitch for a new software product",
+"Design a poster for a charity fundraising event",
+"Create a social media strategy for a fashion brand",
+"Write a script for a webinar on personal finance",
+"Design a brochure for a travel agency",
+"Create an infographic about the benefits of meditation",
+"Write a press release for a new product launch",
+"Design a packaging for a gourmet food product",
+"Create a podcast episode about entrepreneurship",
+"Write an engaging About Us page for a company website",
+"Design a poster for an art exhibition",
+"Create an animated video for a language learning app",
+"Develop a marketing plan for a tech startup",
                     // Add more copywriting prompts
                 ],
                 social: [
                     "Compose a catchy tweet promoting a new book release.",
                     "Write an engaging Facebook post about the importance of recycling.",
+                    "The impact of social media on mental health",
+"Effective strategies for building social connections",
+"The role of social media in political activism",
+"Exploring the pros and cons of social media influencers",
+"The influence of social media on body image perceptions",
+"The power of social media in spreading awareness about social issues",
+"The impact of social media on interpersonal communication",
+"Navigating the challenges of online social interactions",
+"The role of social media in shaping cultural trends",
+"The ethical implications of social media data collection",
+"The role of social media in promoting entrepreneurship",
+"Exploring the rise of social media marketing",
+"The impact of social media on news consumption",
+"The role of social media in fostering political polarization",
+"The influence of social media on consumer behavior",
+"The benefits and drawbacks of social media for businesses",
+"The role of social media in promoting environmental awareness",
+"The impact of social media on self-esteem and self-image",
+"Exploring the phenomenon of online social activism",
+"The role of social media in shaping public opinion",
+"The influence of social media on educational practices",
+"The impact of social media on privacy and data security",
+"The role of social media in promoting cultural diversity",
+"Exploring the psychology of social media addiction",
+"The influence of social media on political elections",
+"The benefits of using social media for professional networking",
+"The impact of social media on the entertainment industry",
+"The role of social media in promoting global connectivity",
+"The ethical considerations of social media content moderation",
+"Exploring the rise of social media influencers",
+"The influence of social media on adolescent development",
+"The impact of social media on the spread of misinformation",
+"The role of social media in shaping travel experiences",
+"The benefits and drawbacks of social media for activism",
+"The role of social media in promoting cultural exchange",
+"The impact of social media on political discourse",
+"The influence of social media on parenting practices",
+"The benefits of using social media for knowledge sharing",
+"The role of social media in promoting health and wellness",
+"Exploring the psychology of social media influence",
+"The impact of social media on the music industry",
+"The role of social media in shaping fashion trends",
+"The influence of social media on body positivity movements",
+"The benefits and drawbacks of social media for education",
+"The role of social media in promoting social justice",
+"The impact of social media on workplace dynamics",
+"The influence of social media on travel planning",
+"The benefits of using social media for creative expression",
+"The role of social media in shaping parenting norms",
+"Exploring the future of social media and its impact on society"
                     // Add more social media prompts
                 ],
                 advertising: [
                     "Create a short script for a radio ad promoting a local restaurant.",
                     "Write a headline and subheadline for a print advertisement for a technology gadget.",
+                    "Create a compelling slogan for a new soft drink brand",
+"Write persuasive copy for a luxury car advertisement",
+"Craft an attention-grabbing headline for a summer clothing sale",
+"Develop a catchy tagline for a skincare product",
+"Create a persuasive script for a TV commercial promoting a travel agency",
+"Write engaging copy for a social media ad promoting a new smartphone",
+"Craft a compelling email subject line for a holiday promotion",
+"Develop a persuasive sales letter for a fitness equipment company",
+"Write a captivating radio script for a restaurant advertisement",
+"Create an enticing product description for a new fashion accessory",
+"Craft a persuasive call-to-action for a home improvement service",
+"Write an attention-grabbing headline for a real estate advertisement",
+"Develop a compelling brochure for a luxury hotel",
+"Create a persuasive script for a video ad promoting a health supplement",
+"Craft an engaging tagline for a furniture store",
+"Write persuasive copy for a print ad promoting a beauty product",
+"Develop a catchy jingle for a fast food restaurant",
+"Create an enticing product description for a gourmet chocolate brand",
+"Craft a persuasive sales pitch for a software company",
+"Write an attention-grabbing headline for a fitness club promotion",
+"Develop a compelling script for a webinar promoting a business course",
+"Create a persuasive call-to-action for a car insurance company",
+"Craft an engaging tagline for a travel agency",
+"Write persuasive copy for a billboard ad promoting a music festival",
+"Develop a catchy slogan for a pet food brand",
+"Create an enticing product description for a home appliance",
+"Craft a persuasive sales letter for a fashion retailer",
+"Write an attention-grabbing headline for a technology product launch",
+"Develop a compelling script for a podcast ad promoting a self-help book",
+"Create a persuasive call-to-action for a financial services company",
+"Craft an engaging tagline for a coffee shop",
+"Write persuasive copy for a magazine ad promoting a skincare brand",
+"Develop a catchy jingle for a children's toy",
+"Create an enticing product description for a gourmet coffee brand",
+"Craft a persuasive sales pitch for a marketing agency",
+"Write an attention-grabbing headline for a fitness equipment promotion",
+"Develop a compelling script for a YouTube ad promoting a cooking class",
+"Create a persuasive call-to-action for a fashion e-commerce website",
+"Craft an engaging tagline for a sports apparel brand",
+"Write persuasive copy for a newspaper ad promoting a car dealership",
+"Develop a catchy slogan for a health and wellness brand",
+"Create an enticing product description for a home decor item",
+"Craft a persuasive sales letter for a travel agency",
+"Write an attention-grabbing headline for a food delivery service",
+"Develop a compelling script for a radio ad promoting a charity",
+"Create a persuasive call-to-action for a technology company",
+"Craft an engaging tagline for a jewelry brand",
+"Write persuasive copy for a billboard ad promoting a clothing store",
+"Develop a catchy jingle for a soft drink",
+
                     // Add more advertising prompts
                 ],
                 technical: [
                     "Write step-by-step instructions for setting up a home Wi-Fi network.",
                     "Create a troubleshooting guide for common software issues.",
+                    "Write a user manual for a new software application",
+"Create a step-by-step guide for troubleshooting common computer issues",
+"Develop a technical specification document for a mobile app",
+"Write a comprehensive guide for setting up a home network",
+"Create a tutorial for using a programming language",
+"Write a documentation manual for a software development framework",
+"Develop a user guide for a digital camera",
+"Create a troubleshooting guide for a smart home system",
+"Write a technical report on the benefits of cloud computing",
+"Develop a guide for implementing cybersecurity best practices",
+"Create a manual for operating industrial machinery",
+"Write a technical specification document for a new electronic device",
+"Develop a user guide for a medical device",
+"Create a tutorial for using a graphic design software",
+"Write a documentation manual for a content management system",
+"Develop a troubleshooting guide for a network router",
+"Create a step-by-step guide for building a computer",
+"Write a technical report on the impact of artificial intelligence in healthcare",
+"Develop a user guide for a software testing tool",
+"Create a manual for operating a robotic arm",
+"Write a technical specification document for a website development project",
+"Develop a guide for implementing data encryption",
+"Create a tutorial for using a project management software",
+"Write a documentation manual for a database management system",
+"Develop a troubleshooting guide for a mobile device",
+"Create a step-by-step guide for configuring a wireless network",
+"Write a technical report on the benefits of virtual reality in education",
+"Develop a user guide for a drone",
+"Create a manual for operating a 3D printer",
+"Write a technical specification document for a network infrastructure",
+"Develop a guide for implementing data backup strategies",
+"Create a tutorial for using a video editing software",
+"Write a documentation manual for a customer relationship management system",
+"Develop a troubleshooting guide for a computer software",
+"Create a step-by-step guide for setting up an e-commerce website",
+"Write a technical report on the impact of blockchain technology in finance",
+"Develop a user guide for a home automation system",
+"Create a manual for operating a CNC machine",
+"Write a technical specification document for a mobile game",
+"Develop a guide for implementing network security measures",
+"Create a tutorial for using a data analysis software",
+"Write a documentation manual for a project collaboration tool",
+"Develop a troubleshooting guide for a printer",
+"Create a step-by-step guide for configuring a server",
+"Write a technical report on the benefits of machine learning in business",
+"Develop a user guide for a virtual reality headset",
+"Create a manual for operating a solar power system",
+"Write a technical specification document for a software integration project",
+"Develop a guide for implementing data privacy policies",
                     // Add more technical writing prompts
                 ],
                 manuals: [
                     "Write a user manual for assembling a piece of furniture.",
                     "Document the features and functions of a new software application.",
+                    "Write a user manual for assembling a piece of furniture",
+"Document the features and functions of a new software application",
+"Create a troubleshooting guide for common hardware issues",
+"Write step-by-step instructions for setting up a home Wi-Fi network",
+"Document the installation process for a mobile application",
+"Create a user guide for operating a digital camera",
+"Write a manual for using a home security system",
+"Document the maintenance procedures for a car engine",
+"Create a guide for troubleshooting common printer problems",
+"Write step-by-step instructions for assembling a computer",
+"Document the setup process for a smart home automation system",
+"Create a user manual for a kitchen appliance",
+"Write a guide for using a video editing software",
+"Document the configuration steps for a network router",
+"Create a manual for operating a medical device",
+"Write step-by-step instructions for programming a universal remote control",
+"Document the safety procedures for operating heavy machinery",
+"Create a troubleshooting guide for a mobile phone",
+"Write a user manual for a home theater system",
+"Document the setup process for a gaming console",
+"Create a guide for using a graphic design software",
+"Write step-by-step instructions for assembling a bicycle",
+"Document the installation steps for a home security camera",
+"Create a manual for operating a power tool",
+"Write a guide for using a spreadsheet software",
+"Document the configuration process for a wireless printer",
+"Create a user manual for a musical instrument",
+"Write a guide for troubleshooting a computer network",
+"Document the setup steps for a virtual reality headset",
+"Create a manual for operating a drone",
+"Write step-by-step instructions for installing a software application",
+"Document the maintenance procedures for a home HVAC system",
+"Create a guide for using a project management software",
+"Write a user manual for a home appliance",
+"Document the setup process for a home automation hub",
+"Create a troubleshooting guide for a laptop",
+"Write step-by-step instructions for assembling a piece of exercise equipment",
+"Document the installation steps for a car stereo system",
+"Create a manual for operating a digital video camera",
+"Write a guide for using a photo editing software",
+"Document the configuration process for a network switch",
+"Create a user manual for a home security alarm system",
+"Write a guide for troubleshooting a mobile app",
+"Document the setup steps for a wireless speaker system",
+"Create a manual for operating a sewing machine",
+"Write step-by-step instructions for programming a smart thermostat",
+"Document the safety procedures for operating a construction vehicle",
+"Create a guide for using a CAD software",
+"Write a user manual for a home entertainment system",
                     // Add more user manual prompts
                 ],
                 ebooks: [
                     "Write an ebook on budgeting and financial planning.",
                     "Create a comprehensive guide to healthy eating and meal preparation.",
+                   
+"Write an Ebook on effective content marketing strategies",
+"Create a comprehensive guide to SEO optimization techniques",
+"Develop an Ebook on the future of artificial intelligence in business",
+"Craft a White Paper on the benefits of cloud computing in the healthcare industry",
+"Explore the impact of blockchain technology on supply chain management in a White Paper",
+"Write an Ebook on the fundamentals of digital marketing",
+"Create a comprehensive guide to social media advertising strategies in an Ebook",
+"Develop a White Paper on the role of data analytics in business decision-making",
+"Craft an Ebook on the principles of effective project management",
+"Explore the benefits of customer relationship management systems in a White Paper",
+"Write an Ebook on the importance of cybersecurity in the digital age",
+"Create a comprehensive guide to email marketing best practices in an Ebook",
+"Develop a White Paper on the impact of mobile technology on consumer behavior",
+"Craft an Ebook on the fundamentals of user experience design",
+"Explore the role of data privacy in the era of big data in a White Paper",
+"Write an Ebook on the future of e-commerce and online retail",
+"Create a comprehensive guide to lead generation strategies in an Ebook",
+"Develop a White Paper on the benefits of implementing a customer loyalty program",
+"Craft an Ebook on the principles of effective content creation",
+"Explore the impact of influencer marketing on consumer purchasing decisions in a White Paper",
+"Write an Ebook on the importance of branding in business success",
+"Create a comprehensive guide to social media analytics in an Ebook",
+"Develop a White Paper on the role of artificial intelligence in customer service",
+"Craft an Ebook on the fundamentals of search engine optimization",
+"Explore the benefits of video marketing in a White Paper",
+"Write an Ebook on the future of virtual reality in entertainment",
+"Create a comprehensive guide to affiliate marketing strategies in an Ebook",
+"Develop a White Paper on the impact of data-driven marketing on customer engagement",
+"Craft an Ebook on the principles of effective storytelling in marketing",
+"Explore the role of chatbots in customer support in a White Paper",
+"Write an Ebook on the importance of personalization in marketing",
+"Create a comprehensive guide to social media management in an Ebook",
+"Develop a White Paper on the benefits of implementing a marketing automation system",
+"Craft an Ebook on the fundamentals of mobile app development",
+"Explore the impact of voice search technology on SEO in a White Paper",
+"Write an Ebook on the future of augmented reality in advertising",
+"Create a comprehensive guide to content distribution strategies in an Ebook",
+"Develop a White Paper on the role of data visualization in business intelligence",
+"Craft an Ebook on the principles of effective email marketing",
+"Explore the benefits of personalized marketing in a White Paper",
+"Write an Ebook on the importance of social proof in marketing",
+"Create a comprehensive guide to influencer outreach strategies in an Ebook",
+"Develop a White Paper on the impact of data privacy regulations on marketing",
+"Craft an Ebook on the fundamentals of conversion rate optimization",
+"Explore the role of user-generated content in brand building in a White Paper",
+"Write an Ebook on the future of chatbots in customer service",
+"Create a comprehensive guide to video marketing strategies in an Ebook",
+"Develop a White Paper on the benefits of implementing a customer feedback system" , 
+"Craft an Ebook on the principles of effective social media advertising"
+                    
                     // Add more ebook prompts
                 ],
                 ux: [
                     "Write user interface text for a mobile weather app.",
                     "Craft error messages and user prompts for an e-commerce checkout process.",
+                    "Write user interface text for a mobile weather app",
+"Craft error messages and user prompts for an e-commerce checkout process",
+"Create a conversational onboarding experience for a productivity app",
+"Design microcopy for a social media sharing feature",
+"Optimize the wording of a notification for a fitness tracking app",
+"Write clear and concise instructions for a photo editing tool",
+"Create user-friendly tooltips for a website navigation menu",
+"Craft engaging push notification messages for a news app",
+"Design error handling messages for a banking app",
+"Write user-friendly labels and descriptions for form fields in a travel booking app",
+"Create intuitive error messages for a password reset flow",
+"Optimize the wording of a confirmation message for a subscription service",
+"Craft user prompts for a language learning app",
+"Design clear and informative tooltips for a video streaming platform",
+"Write user interface text for a calendar scheduling feature",
+"Create user-friendly error messages for a file upload functionality",
+"Craft engaging onboarding messages for a meditation app",
+"Design intuitive tooltips for a task management tool",
+"Write clear and concise instructions for a recipe app",
+"Create user-friendly error messages for a payment gateway",
+"Craft persuasive copy for a call-to-action button in a shopping app",
+"Design informative tooltips for a map navigation feature",
+"Write user interface text for a music streaming app",
+"Create user-friendly error messages for a messaging platform",
+"Craft engaging onboarding messages for a fitness tracking app",
+"Design intuitive tooltips for a budgeting app",
+"Write clear and concise instructions for a note-taking app",
+"Create user-friendly error messages for a social networking platform",
+"Craft persuasive copy for a sign-up button in a dating app",
+"Design informative tooltips for a travel planning tool",
+"Write user interface text for a recipe sharing app",
+"Create user-friendly error messages for a video conferencing platform",
+"Craft engaging onboarding messages for a language learning app",
+"Design intuitive tooltips for a weather forecasting app",
+"Write clear and concise instructions for a fitness app",
+"Create user-friendly error messages for a task management tool",
+"Craft persuasive copy for a checkout button in an e-commerce app",
+"Design informative tooltips for a music streaming platform",
+"Write user interface text for a budgeting app",
+"Create user-friendly error messages for a calendar scheduling feature",
+"Craft engaging onboarding messages for a recipe app",
+"Design intuitive tooltips for a messaging platform",
+"Write clear and concise instructions for a meditation app",
+"Create user-friendly error messages for a map navigation feature",
+"Craft persuasive copy for a search button in a music streaming app",
+"Design informative tooltips for a note-taking app",
+"Write user interface text for a social networking platform",
+"Create user-friendly error messages for a dating app",
+"Craft engaging onboarding messages for a travel planning tool",
                     // Add more UX writing prompts
                 ],
             };
 
             generateBtn.addEventListener("click", () => {
                 const promptType = document.getElementById("promptType").value;
-                const numPrompts = document.getElementById("numPrompts").value;
-
+                const numPrompts = numPromptsInput.value;
+    
+                if (numPrompts > 50) {
+                    alert("Number of prompts cannot exceed 50.");
+                    return;
+                }
+    
                 const prompts = generatePrompts(promptType, numPrompts);
                 displayPrompts(prompts);
             });
-
+    
             function generatePrompts(type, num) {
                 const selectedPrompts = promptTypes[type];
                 if (!selectedPrompts) {
                     return [];
                 }
-
+    
                 const generatedPrompts = [];
                 for (let i = 0; i < num; i++) {
                     const randomIndex = Math.floor(Math.random() * selectedPrompts.length);
                     generatedPrompts.push(selectedPrompts[randomIndex]);
                 }
-
+    
                 return generatedPrompts;
             }
-
+    
             function displayPrompts(prompts) {
                 promptOutput.innerHTML = "";
                 prompts.forEach(prompt => {
@@ -222,16 +645,6 @@
                 });
             }
         });
-         // JavaScript logic for generating prompts and clearing prompts
-         document.getElementById('generateBtn').addEventListener('click', function(event) {
-          // Your generation logic here
-          event.preventDefault();
-      });
-
-      document.getElementById('clearBtn').addEventListener('click', function(event) {
-          location.reload(); // Refreshes the page
-          event.preventDefault();
-      });
     </script>
 </body>
 </html>
